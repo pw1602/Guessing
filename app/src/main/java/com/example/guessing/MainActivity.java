@@ -30,17 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         winsText = (TextView) findViewById(R.id.tv_Win);
         updateText();
 
-        for (int i = 0; i < buttons.length; i++) {
-            String buttonName = "btn_" + (i + 1);
-            int resID = getResources().getIdentifier(buttonName, "id", getPackageName());
-
-            do {
-                buttonsText[i] = RANDOM_STRINGS[rand.nextInt(RANDOM_STRINGS.length) + 0];
-            } while (checkStringContains(buttonsText, buttonsText[i], 2, i));
-
-            buttons[i] = findViewById(resID);
-            buttons[i].setOnClickListener(this);
-        } //for
+        doRandomButtons();
 
     } //onCreate
 
@@ -60,6 +50,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } //if
     } //onClick
 
+    private void doRandomButtons() {
+        for (int i = 0; i < buttons.length; i++) {
+            String buttonName = "btn_" + (i + 1);
+            int resID = getResources().getIdentifier(buttonName, "id", getPackageName());
+
+            do {
+                buttonsText[i] = RANDOM_STRINGS[rand.nextInt(RANDOM_STRINGS.length) + 0];
+            } while (checkStringContains(buttonsText, buttonsText[i], 2, i));
+
+            buttons[i] = findViewById(resID);
+            buttons[i].setOnClickListener(this);
+        } //for
+    } //doRandomButtons
+
     public void checkButton(View view) {
         if (checkClicked(2)) {
             if (checkPair()) {
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 goodButtons.clear();
                 winsAmount++;
                 updateText();
+                doRandomButtons();
             } //if
 
             hideText();
